@@ -1,11 +1,11 @@
-package nettytest;
+package biotest;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * netty测试的服务类
+ * BIO创建的时间服务
  *
  * @Authuor Administrator
  * @Create 2016-09-01-17:50
