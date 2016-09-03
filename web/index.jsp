@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>My first page in idea</title>
   </head>
   <body>
-  $END$巴拉拉
+  Hello world!
   </body>
 </html>
