@@ -46,6 +46,7 @@ public class TimeClientHandle implements Runnable {
                 SelectionKey key = null;
                 while (iterator.hasNext()) {
                     key = iterator.next();
+                    //System.out.println("run =" + key);
                     iterator.remove();
                     handleInput(key);
                 }
@@ -72,6 +73,7 @@ public class TimeClientHandle implements Runnable {
             try {
                 if (key.isConnectable()) {
                     if (sc.finishConnect()) {
+                        System.out.println("connect finish");
                         sc.register(selector, SelectionKey.OP_READ);
                         doWrite(sc);
                     }else{
@@ -79,10 +81,12 @@ public class TimeClientHandle implements Runnable {
                     }
                     if(key.isReadable()){
                         ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+                        System.out.println("come in");
                         int readBytes = sc.read(readBuffer);
                         if(readBytes > 0) {
                             readBuffer.flip();
                             byte[] bytes = new byte[readBuffer.remaining()];
+                            readBuffer.get(bytes);
                             String body = new String(bytes, "utf-8");
                             System.out.println("Now is : " + body);
                             this.stop = true;
@@ -114,9 +118,11 @@ public class TimeClientHandle implements Runnable {
             //如果直接连接成功，注册到多路复用器上，发送请求消息，读应答消息
             if (socketChannel.connect(new InetSocketAddress(host, port))) {
                 socketChannel.register(selector, SelectionKey.OP_READ);
+                System.out.println("connect succeed");
                 doWrite(socketChannel);
             } else { //否则注册到多路复用器上，连接就绪
                 socketChannel.register(selector, SelectionKey.OP_CONNECT);
+                System.out.println("connect fail");
             }
         } catch (IOException e) {
             e.printStackTrace();

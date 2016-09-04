@@ -1,9 +1,6 @@
 package niotest;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 
 /**
@@ -20,15 +17,12 @@ public class TimeServer {
         }
 
         MultiplexerTimeServer timeServer = new MultiplexerTimeServer(port);
-        try {
-            ServerSocketChannel acceptorSvr = ServerSocketChannel.open();
-            new Thread(timeServer, "NIO-MultiplexerTimeServer-001").start();
+
+        new Thread(timeServer, "NIO-MultiplexerTimeServer-001").start();
            /* acceptorSvr.bind(new InetSocketAddress(InetAddress.getByName("IP"), port));
             acceptorSvr.configureBlocking(false);
             Selector selector = Selector.open();
             new Thread(new ReactorTask()).start();*/
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 }

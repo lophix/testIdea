@@ -50,19 +50,15 @@ public class MultiplexerTimeServer implements Runnable {
                 selector.select(1000);
                 Set<SelectionKey> selectedKeys = selector.selectedKeys();
                 Iterator<SelectionKey> iterator = selectedKeys.iterator();
-                SelectionKey selectionKey = null;
+                SelectionKey key = null;
                 while(iterator.hasNext()){
-                    selectionKey = iterator.next();
+                    key = iterator.next();
                     iterator.remove();
-                    handleInput(selectionKey);
-                    if(selectionKey != null){
-                        selectionKey.cancel();
-                        if(selectionKey.channel() != null)
-                            selectionKey.channel().close();
-                    }
+                    handleInput(key);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.exit(1);
             }
         }
         //多路复用器（selector）关闭后，所有注册在上面的Channel和Pipe等资源都会被自动注销并关闭，所以不需要重复释放资源
@@ -95,22 +91,32 @@ public class MultiplexerTimeServer implements Runnable {
                 SocketChannel sc = (SocketChannel) key.channel();
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
                 try {
-                    int readbytes = sc.read(readBuffer);
-                    if (readbytes > 0){
+                    int readBytes = sc.read(readBuffer);
+                    if (readBytes > 0){
                         readBuffer.flip();
                         byte[] bytes = new byte[readBuffer.remaining()];
                         readBuffer.get(bytes);
                         String body = new String(bytes, "utf-8");
                         System.out.println("The time server receive order : " + body);
                         String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+                        System.out.println(currentTime);
                         doWrite(sc, currentTime);
-                    }else if(readbytes < 0){
+                    }else if(readBytes < 0){
                         //对端链路关闭
                         key.cancel();
                         sc.close();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                    if(key != null){
+                        key.cancel();
+                        if(key.channel() != null)
+                            try {
+                                key.channel().close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                    }
                 }
             }
         }
@@ -122,8 +128,12 @@ public class MultiplexerTimeServer implements Runnable {
             ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
             writeBuffer.put(bytes);
             writeBuffer.flip();
+            System.out.println("dowrite = " + resp);
             try {
                 channel.write(writeBuffer);
+                if (!writeBuffer.hasRemaining()) {
+                    System.out.println("Send order 2 client succeed.");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
