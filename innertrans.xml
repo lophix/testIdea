@@ -1,0 +1,27 @@
+<!-- 集团内部转账交易 -->
+<ap>
+	<head>
+		<tr_code>210202</tr_code>
+		<corp_no>0000056517</corp_no>
+		<user_no>00013</user_no>
+		<req_no>test1</req_no>
+		<tr_acdt>20160906</tr_acdt>
+		<tr_time>113030</tr_time>
+		<atom_tr_count>1</atom_tr_count>
+		<channel>0</channel>
+		<reserved></reserved>
+		<sign>1</sign>
+	</head>
+	<body>
+		<pay_flag>0</pay_flag>
+		<pay_acno>443066027018150266179</pay_acno>
+		<pay_acname>whatever</pay_acname>
+		<rcv_bank_name>****bank</rcv_bank_name>
+		<rcv_acno>331066160018150079725</rcv_acno>
+		<rcv_acname>whoever</rcv_acname>
+		<cur_code>CNY</cur_code>
+		<amt>10.32</amt>
+		<cert_no>4</cert_no>
+		<summary>附言</summary>
+	</body>
+</ap>
