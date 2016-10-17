@@ -1,4 +1,4 @@
-package protobufTest;
+package protobuftest;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
