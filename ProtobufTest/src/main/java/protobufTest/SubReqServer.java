@@ -49,4 +49,9 @@ public class SubReqServer {
             workerGroup.shutdownGracefully();
         }
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        int port = 8080;
+        new SubReqServer().bind(port);
+    }
 }

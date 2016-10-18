@@ -8,6 +8,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 /**
  * Client for SubReq
@@ -23,7 +27,11 @@ public class SubReqClient {
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel ch) throws Exception {
-
+                    ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+                    ch.pipeline().addLast(new ProtobufDecoder(SubscribeRespOuterClass.SubscribeResp.getDefaultInstance()));
+                    ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
+                    ch.pipeline().addLast(new ProtobufEncoder());
+                    ch.pipeline().addLast(new SubReqClientHandler());
                 }
             });
 
