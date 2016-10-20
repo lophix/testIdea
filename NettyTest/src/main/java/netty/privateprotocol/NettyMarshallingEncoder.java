@@ -1,5 +1,6 @@
 package netty.privateprotocol;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.marshalling.MarshallingEncoder;
 
 /**
@@ -9,11 +10,16 @@ import io.netty.handler.codec.marshalling.MarshallingEncoder;
  * @Create 2016-10-20-13:17
  */
 public class NettyMarshallingEncoder {
-    private static final byte[] PLACEHOLDER = new byte[4];
+    private static final byte[] LENGTH_PLACEHOLDER = new byte[4];
     MarshallingEncoder marshaller;
 
     public NettyMarshallingEncoder(){
         marshaller = MarshallingCodecFactory.buildMarshallingEncoder();
     }
 
+    protected void encoder(Object msg, ByteBuf out){
+        int lengthPos = out.writerIndex();
+        out.writeBytes(LENGTH_PLACEHOLDER);
+
+    }
 }
