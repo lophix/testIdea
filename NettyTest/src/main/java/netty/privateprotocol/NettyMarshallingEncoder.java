@@ -12,7 +12,6 @@ import io.netty.handler.codec.marshalling.MarshallingEncoder;
  * @Create 2016-10-20-13:17
  */
 public class NettyMarshallingEncoder extends MarshallingEncoder {
-    private static final byte[] LENGTH_PLACEHOLDER = new byte[4];
 
     public NettyMarshallingEncoder(MarshallerProvider provider) {
         super(provider);

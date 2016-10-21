@@ -27,6 +27,7 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
         Header header = new Header();
         header.setType((byte)1);
         message.setHeader(header);
+        message.setBody("Its request");
         return message;
     }
 
