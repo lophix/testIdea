@@ -36,6 +36,13 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
         NettyMessage message = (NettyMessage) msg;
         if (message.getHeader() != null && message.getHeader().getType() == (byte)2){
             System.out.println("Received from server response");
+            byte loginResult = (Byte) message.getBody();
+            if (loginResult != (byte)0)
+                ctx.close();
+            else{
+                System.out.println("Login is OK : " + message);
+                ctx.fireChannelRead(msg);
+            }
         }
         ctx.fireChannelRead(msg);
     }
