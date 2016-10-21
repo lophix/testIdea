@@ -25,7 +25,7 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
     private NettyMessage buildLoginReq(){
         NettyMessage message = new NettyMessage();
         Header header = new Header();
-        header.setType((byte)1);
+        header.setType(MessageType.LOGIN_REQ);
         message.setHeader(header);
         message.setBody("Its request");
         return message;
@@ -34,16 +34,17 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         NettyMessage message = (NettyMessage) msg;
-        if (message.getHeader() != null && message.getHeader().getType() == (byte)2){
+        if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_RESP){
             System.out.println("Received from server response");
             byte loginResult = (Byte) message.getBody();
-            if (loginResult != (byte)0)
+            if (loginResult != MessageType.HANDSHAKE)
                 ctx.close();
             else{
                 System.out.println("Login is OK : " + message);
                 ctx.fireChannelRead(msg);
             }
+        }else {
+            ctx.fireChannelRead(msg);
         }
-        ctx.fireChannelRead(msg);
     }
 }

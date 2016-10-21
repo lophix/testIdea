@@ -20,13 +20,13 @@ public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         NettyMessage message = (NettyMessage) msg;
-        if (message.getHeader() != null && message.getHeader().getType() == (byte)1){
+        if (message.getHeader() != null && message.getHeader().getType() == MessageType.LOGIN_REQ){
             String nodeIndex = ctx.channel().remoteAddress().toString();
             NettyMessage loginResp = null;
             System.out.println(nodeIndex);
             //Refuse relogin
             if (nodeCheck.containsKey(nodeIndex)){
-                loginResp = buildLoginResponse((byte)-1);
+                loginResp = buildLoginResponse(MessageType.REFUSE_CONNECT);
             }else {
                 InetSocketAddress address = (InetSocketAddress) ctx.channel().remoteAddress();
                 String ip = address.getAddress().getHostAddress();
@@ -37,7 +37,7 @@ public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
                         break;
                     }
                 }
-                loginResp = isOk ? buildLoginResponse((byte)0) : buildLoginResponse((byte)-1);
+                loginResp = isOk ? buildLoginResponse(MessageType.HANDSHAKE) : buildLoginResponse(MessageType.REFUSE_CONNECT);
                 if (isOk){
                     nodeCheck.put(nodeIndex, true);
                 }
@@ -45,14 +45,14 @@ public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
             System.out.println("The login response is : " + loginResp + "body [" + loginResp.getBody() + "]");
             ctx.writeAndFlush(loginResp);
         }else{
-            ctx.writeAndFlush(msg);
+            ctx.fireChannelRead(msg);
         }
     }
 
     private NettyMessage buildLoginResponse(byte result){
         NettyMessage message = new NettyMessage();
         Header header = new Header();
-        header.setType((byte)2);
+        header.setType(MessageType.LOGIN_RESP);
         message.setHeader(header);
         message.setBody(result);
         return message;

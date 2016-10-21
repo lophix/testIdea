@@ -26,6 +26,7 @@ public class NettyServer {
                     ch.pipeline().addLast(new NettyMessageDecoder(1024*1024, 4, 4, -8, 0));
                     ch.pipeline().addLast(new NettyMessageEncoder());
                     ch.pipeline().addLast(new LoginAuthRespHandler());
+                    ch.pipeline().addLast(new HeartBeatRespHandler());
                 }
             });
             ChannelFuture f = b.bind(port).sync();
