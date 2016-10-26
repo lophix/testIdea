@@ -1,4 +1,4 @@
-package netty.chat;
+package netty.chat.websocket;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
