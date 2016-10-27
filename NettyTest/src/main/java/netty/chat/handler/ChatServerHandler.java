@@ -1,9 +1,11 @@
-package netty.chat.websocket;
+package netty.chat.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import net.sf.json.JSONObject;
+import netty.chat.bean.UserInfo;
+import netty.chat.service.UserListManager;
 
 import java.util.Date;
 

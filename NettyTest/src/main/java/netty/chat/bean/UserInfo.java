@@ -1,4 +1,4 @@
-package netty.chat.websocket;
+package netty.chat.bean;
 
 /**
  * User's information

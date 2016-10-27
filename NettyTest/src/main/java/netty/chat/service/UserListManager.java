@@ -1,9 +1,10 @@
-package netty.chat.websocket;
+package netty.chat.service;
 
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import netty.chat.bean.UserInfo;
 
 import java.util.Collections;
 import java.util.Date;
