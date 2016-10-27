@@ -1,40 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>简易聊天室</title>
+
+    <script src="./chatclient.js" ></script>
 </head>
 <body>
-<div style="margin:0 auto; width: 800px;">
-    　　<textarea id="taMessages" style="width: 360px; height: 200px;" readonly></textarea>
-    　　<br/>
-    　　<input id="btnMessage" type="text" style="float:left; width:300px;"/>
-    　　<input id="btnSend" type="button" value="Send" disabled="disabled" onclick="sendMessage();"/>
-</div>
 
-<script>
-    /* 注意浏览器js的执行顺序 */
-    var wsServer = 'ws://localhost:8080/chatServer'; //服务器地址
-    var websocket = new WebSocket(wsServer); //创建WebSocket对象
+    <br/><br/><br/>
+    <div id="loginboard" style="margin: 0 auto; width: 800px">
+        <span style="float:left">用户名: </span>
+        <input id="username" type="text"/>
+        <input id="btnLogin" value="登陆" type="button" onclick="doLogin();"/>
+    </div>
 
-    websocket.onopen = function (evt) {
-        document.getElementById("btnSend").disabled = false;
-    }
-    websocket.onmessage = function (evt) {
-        document.getElementById("taMessages").value += evt.data + "\r\n";
-    }
-    websocket.onclose = function (evt) {
-    }
-    websocket.onerror = function (evt) {
-    }
+    <div id="chatboard" style="margin:0 auto; width: 800px;" hidden="true">
+        <div style="width: 100px;" >
+            <p style="width: 90px; margin:0px">用户列表</p>
+            <textarea style="float:left; width:90px; height:180px" id="userlist" readonly>
+            </textarea>
+        </div>
+        <div style="float:left; width: 360px; height: 200px;">
+            <textarea id="taMessages" style="width: 360px; height: 200px; overflow-y:auto" readonly ></textarea>
+            <br />
+            <input id="btnMessage" type="text" style="float:left; width:300px;" />
+            <input id="btnSend" type="button" value="Send" onclick="sendMessage();"/>
+        </div>
+    </div>
 
-    function sendMessage() {
-        var message = document.getElementById('btnMessage').value;
-        if (websocket.readyState == WebSocket.OPEN) {
-            websocket.send(message);
+    <script>
+        /*  注意浏览器js的执行顺序 */
+        var ownerUserid = 0;
+        var chatClient = new WebChatClient();
+        chatClient.init("ws://localhost:8080/chatServer", function(event) {
+            switch(event.type) {
+                case ChatEvent.LOGIN_ACK:
+                    document.getElementById("loginboard").hidden = true;
+                    document.getElementById("chatboard").hidden = false;
+                    ownerUserid = event.msg["userid"];
+
+                    document.addEventListener("keydown", function(evt) {
+                        if ( evt.keyCode == 13 ) {
+                            sendMessage();
+                        }
+                    });
+                    break;
+                case ChatEvent.SEND_MESSAGE_ACK:
+                    // TODO
+                    break;
+                case ChatEvent.RECEIVE_MESSAGE:
+                    var userline = "";
+                    if ( event.msg["userid"] === ownerUserid ) {
+                        userline = "我" + "\t" + new Date(event.msg["timestamp"]).toLocaleString();
+                    } else {
+                        userline = event.msg["username"] + "(" + event.msg["userid"] + ")" + "\t" + new Date(event.msg["timestamp"]).toLocaleString();
+                    }
+                    var msgdata = event.msg["message"];
+
+                    var uiTaMessages = document.getElementById("taMessages");
+                    uiTaMessages.value += userline + "\n";
+                    uiTaMessages.value += "\t" + msgdata + "\n";
+
+                    // *) 自动到页面底部
+                    uiTaMessages.scrollTop = uiTaMessages.scrollHeight;
+                    break;
+                case ChatEvent.USERLIST:
+                    var userlist = event.msg["users"];
+                    var struserlist = "";
+                    for ( var i = 0; i < userlist.length; i++ ) {
+                        struserlist = struserlist + userlist[i].username + "(" + userlist[i].userid + ")\r\n";
+                    }
+                    document.getElementById("userlist").value = struserlist;
+                    break;
+                case ChatEvent.UNEXPECT_ERROR:
+                    break;
+            }
+        });
+
+        function doLogin() {
+            chatClient.login(document.getElementById('username').value);
         }
-        document.getElementById('btnMessage').value = '';
-    }
-</script>
+
+        function sendMessage() {
+            // *) 发送消息到服务器端
+            chatClient.sendMessage(document.getElementById("btnMessage").value);
+            // *) 清空 消息栏的内容
+            document.getElementById("btnMessage").value = "";
+        }
+
+    </script>
+
 </body>
 </html>
