@@ -5,7 +5,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import net.sf.json.JSONObject;
 import netty.chat.bean.UserInfo;
-import netty.chat.service.UserListManager;
 
 import java.util.Date;
 
@@ -43,13 +42,15 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<TextWebSocket
     }
 
     private void handleLoginEvent(ChannelHandlerContext ctx, JSONObject params){
-        if(params.getString("username") != null){
-            if ("Tom".equals(params.getString("username")) || "Jerry".equals(params.getString("username"))){
-                String username = params.getString("username");
-                UserInfo userInfo = userListManager.login(ctx.channel(), username);
-                ackLogin(ctx, username, userInfo.getUserID());
-                userListManager.broadcastUserList();
-            }
+        if(params.getString("username") != null && params.getString("password") != null){
+            String username = params.getString("username");
+            String password = params.getString("password");
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserName(username);
+            userInfo.setPassword(password);
+            userInfo = userListManager.login(ctx.channel(), userInfo);
+            ackLogin(ctx, username, userInfo.getUserID());
+            userListManager.broadcastUserList();
         }
     }
 

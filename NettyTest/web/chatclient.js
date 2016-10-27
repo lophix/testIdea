@@ -63,9 +63,9 @@
         }
     }
 
-    WebChatClient.prototype.login = function(username) {
+    WebChatClient.prototype.login = function(username, password) {
         if ( this.websocket.readyState == WebSocket.OPEN && this.state == WebChatClient.CONNECTED ) {
-            var msgdata = JSON.stringify({req:"login", params:{username:username}});
+            var msgdata = JSON.stringify({req:"login", params:{username:username, password:password}});
             this.websocket.send(msgdata);
         }
     }

@@ -1,16 +1,17 @@
-package netty.chat.service;
+package netty.chat.handler;
 
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import netty.chat.bean.UserInfo;
+import netty.chat.service.UserInfoService;
+import netty.chat.service.impl.UserInfoServiceImpl;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Manager for user list
@@ -20,8 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class UserListManager {
     private Map<Channel, UserInfo> usersMap = Collections.synchronizedMap(new HashMap<Channel, UserInfo>());
-    private AtomicInteger useridGen = new AtomicInteger(100);
     private static UserListManager userListManager = new UserListManager();
+    private UserInfoService userInfoService = new UserInfoServiceImpl();
 
     public static UserListManager userListManager(){
         if (userListManager == null) {
@@ -34,11 +35,10 @@ public class UserListManager {
 
     }
 
-    public UserInfo login(Channel channel, String username){
-        if(!usersMap.containsKey(channel)){
-            int userID = useridGen.addAndGet(1);
-            usersMap.put(channel, new UserInfo(username, userID));
-            userListManager.broadcastMessage("Server", 1, new Date().getTime(), "Welcome " + username + " enter chat room !");
+    public UserInfo login(Channel channel, UserInfo userInfo){
+        if(!usersMap.containsKey(channel) && (userInfo = userInfoService.login(userInfo.getUserName(), userInfo.getPassword())) != null){
+            usersMap.put(channel, userInfo);
+            userListManager.broadcastMessage("Server", 1, new Date().getTime(), "Welcome " + userInfo.getUserName() + " enter chat room !");
         }
         return usersMap.get(channel);
     }

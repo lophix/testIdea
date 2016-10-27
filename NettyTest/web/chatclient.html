@@ -11,7 +11,9 @@
     <br/><br/><br/>
     <div id="loginboard" style="margin: 0 auto; width: 800px">
         <span style="float:left">用户名: </span>
-        <input id="username" type="text"/>
+        <input id="username" type="text"/><br>
+        <span style="float:left">密 码: </span>
+        <input id="password" type="password" /> <br>
         <input id="btnLogin" value="登陆" type="button" onclick="doLogin();"/>
     </div>
 
@@ -79,7 +81,7 @@
         });
 
         function doLogin() {
-            chatClient.login(document.getElementById('username').value);
+            chatClient.login(document.getElementById('username').value, document.getElementById('password').value);
         }
 
         function sendMessage() {
