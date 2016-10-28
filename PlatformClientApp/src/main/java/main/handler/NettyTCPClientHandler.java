@@ -2,6 +2,8 @@ package main.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @Authuor Administrator
@@ -9,22 +11,29 @@ import io.netty.channel.SimpleChannelInboundHandler;
  */
 public class NettyTCPClientHandler extends SimpleChannelInboundHandler<Object> {
 
-    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+    private static final Logger LOG = LogManager.getLogger(NettyTCPClientHandler.class);
+    private ClientTask task;
 
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+       LOG.info("======= {} " , msg.toString());
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
+        task = new ClientTask(ctx.channel());
+        task.commitRequest_106("");
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        super.channelReadComplete(ctx);
+        System.out.println("==== channelReadComplete ");
+        channelActive(ctx);
+        ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+        LOG.warn("Unexpected exception from channel.{} ", cause.getMessage());
+        ctx.close();
     }
 }

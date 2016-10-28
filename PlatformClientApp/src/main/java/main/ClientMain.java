@@ -10,7 +10,7 @@ public class ClientMain {
 
     public static void main(String[] args) throws InterruptedException {
         String host = "127.0.0.1";
-        int port = 8080;
+        int port = 8056;
         NettyTCPClient clientTask = new NettyTCPClient(host, port);
         clientTask.start();
         clientTask.join();
