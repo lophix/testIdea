@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NettyTest/NettyTest.iml" filepath="$PROJECT_DIR$/NettyTest/NettyTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlatformClientApp/PlatformClientApp.iml" filepath="$PROJECT_DIR$/PlatformClientApp/PlatformClientApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/bankconn/bankconn.iml" filepath="$PROJECT_DIR$/bankconn/bankconn.iml" />
       <module fileurl="file://$PROJECT_DIR$/testIdea.iml" filepath="$PROJECT_DIR$/testIdea.iml" />
     </modules>

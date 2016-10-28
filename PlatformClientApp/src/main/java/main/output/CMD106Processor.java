@@ -1,5 +1,7 @@
 package main.output;
 
+import main.pojo.IOutputDataPackage;
+import main.pojo.OperateCmdOfIntOutboundInfo;
 import main.pojo.enums.CMDType;
 import main.util.IntNumDataTypeCodec;
 import main.util.OperateParameterUtil;

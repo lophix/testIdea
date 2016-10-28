@@ -1,5 +1,6 @@
 package main.output;
 
+import main.pojo.IOutputDataPackage;
 import main.pojo.enums.CMDType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

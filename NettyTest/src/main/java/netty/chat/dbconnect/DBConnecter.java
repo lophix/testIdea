@@ -15,7 +15,7 @@ public class DBConnecter {
 
     public static Connection getConnection(){
         if (connection == null) {
-            String url = "jdbc:mysql://localhost:3306/chatdb?"
+            String url = "jdbc:mysql://139.196.187.152:3306/chatdb?"
                     + "user=root&password=Lophix123&useUnicode=true&characterEncoding=UTF8&autoReconnect=true&useSSL=false";
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");

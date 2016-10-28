@@ -1,4 +1,4 @@
-package main.output;
+package main.pojo;
 
 import java.io.Serializable;
 import java.util.Date;

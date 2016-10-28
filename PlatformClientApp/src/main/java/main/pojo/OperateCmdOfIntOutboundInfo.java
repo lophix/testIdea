@@ -1,6 +1,8 @@
-package main.output;
+package main.pojo;
 
 
+import main.output.IntParameterBean;
+import main.output.PileInfo;
 import main.util.X;
 
 import java.util.List;

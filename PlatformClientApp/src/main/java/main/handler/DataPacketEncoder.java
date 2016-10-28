@@ -5,7 +5,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.codec.MessageToByteEncoder;
-import main.output.IOutputDataPackage;
+import main.pojo.IOutputDataPackage;
 import main.output.OutputDataPackageFactory;
 import main.pojo.DataPackageInfo;
 import main.pojo.ReturnBean;

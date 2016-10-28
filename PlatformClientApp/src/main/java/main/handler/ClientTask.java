@@ -2,7 +2,7 @@ package main.handler;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import main.output.RegisterUploadInfo;
+import main.pojo.RegisterUploadInfo;
 import main.pojo.ReturnBean;
 import main.pojo.enums.CMDType;
 import org.apache.logging.log4j.LogManager;

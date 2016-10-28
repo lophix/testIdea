@@ -1,4 +1,4 @@
-package main.output;
+package main.pojo;
 
 import main.pojo.enums.CMDType;
 
