@@ -1,9 +1,11 @@
 package main.pojo;
 
+import main.output.PileInfo;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class RegisterUploadInfo extends OperateCmdOfIntOutboundInfo implements Serializable {
+public class RegisterUploadInfo extends PileInfo implements Serializable {
     /**
      * 充电桩的版本号
      */
@@ -221,6 +223,7 @@ public class RegisterUploadInfo extends OperateCmdOfIntOutboundInfo implements S
                 ", pileRecordNum=" + pileRecordNum +
                 ", pileCurTimes=" + pileCurTimes +
                 ", LastStartTime=" + LastStartTime +
+                ", RegisterPassword=" + registerPassword +
                 ", lastChargingTime=" + lastChargingTime +
                 '}';
     }

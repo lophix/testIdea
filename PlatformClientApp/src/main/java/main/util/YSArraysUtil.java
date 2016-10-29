@@ -1,7 +1,5 @@
 package main.util;
 
-import main.pojo.enums.DataType;
-
 import java.util.Arrays;
 import java.util.Date;
 
@@ -54,31 +52,4 @@ public class YSArraysUtil {
         return result;
     }
 
-    /**
-     * todo:数据转换类
-     */
-    public static Object getObjectValue(byte[] bytes, DataType type) {
-        Object result = null;
-        switch (type) {
-            case STRING:
-                result = StringByteConvert.bytesToString(bytes);
-                break;
-            case INT:
-                result = LittleEndianDataConvert.littleEndianBytesToInt(bytes);
-                break;
-            case DOUBLE:
-                result = 0.001;
-                break;
-            case SHORT:
-                result = IntNumDataTypeCodec.bytesToShortByLength(bytes, 2);
-                break;
-            default:
-                result =0;
-        }
-        return result;
-    }
-
-    public static byte[] getBytes(Byte aByte) {
-        return new byte[]{aByte};
-    }
 }

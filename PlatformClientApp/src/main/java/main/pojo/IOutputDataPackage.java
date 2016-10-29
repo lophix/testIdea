@@ -12,5 +12,5 @@ public interface IOutputDataPackage {
      * @param cmdType
      * @param value
      */
-    public abstract byte[] outputDataRectify(CMDType cmdType, Object value);
+    byte[] outputDataRectify(CMDType cmdType, Object value);
 }

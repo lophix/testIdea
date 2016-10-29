@@ -5,6 +5,8 @@ import io.netty.channel.ChannelFuture;
 import main.pojo.RegisterUploadInfo;
 import main.pojo.ReturnBean;
 import main.pojo.enums.CMDType;
+import main.util.DateUtil;
+import main.util.X;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,9 +47,17 @@ public class ClientTask {
             registerInfo.setStartTimes(10);
             registerInfo.setUploadMode((byte) 1);
             registerInfo.setIntervalTime((short)10);
+            registerInfo.setGunNum((byte)2);
+            registerInfo.setIntervalHeartbeat((byte) 10);
+            registerInfo.setHeartbeatCheckTimes((short) 2);
+            registerInfo.setPileRecordNum(1);
+            registerInfo.setPileCurTimes(DateUtil.getCurDate());
+            registerInfo.setLastChargingTime(DateUtil.getCurDate());
+            registerInfo.setLastStartTime(DateUtil.getCurDate());
+            registerInfo.setRegisterPassword("hello123");
+            registerInfo.setPileLocalIMEIOrMAC("3c:12:f5:6c");
             outContents.put(CMDType.REGISTER_INFO.getCmdNum() ,registerInfo);
-            ReturnBean bean = new ReturnBean();
-            bean.setReturnMap(outContents);
+            ReturnBean bean = buildReturnBean(registerInfo);
             ChannelFuture future = channel.writeAndFlush(bean);
             if (future.isSuccess()) {
                 LOG.debug("output put data successful =======");
@@ -55,5 +65,17 @@ public class ClientTask {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ReturnBean buildReturnBean(RegisterUploadInfo registerUploadInfo) {
+
+        ReturnBean reBean = new ReturnBean();
+
+        Map<Integer, Object> map = X.createMap();
+        map.put(CMDType.REGISTER_INFO.getCmdNum(), registerUploadInfo);
+
+        reBean.setReturnMap(map);
+        reBean.setPileInfo(registerUploadInfo);
+        return reBean;
     }
 }

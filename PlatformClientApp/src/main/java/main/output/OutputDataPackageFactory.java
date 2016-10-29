@@ -5,9 +5,6 @@ import main.pojo.enums.CMDType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Created by pingxin on 2015/12/23.
- */
 @SuppressWarnings("unchecked")
 public class OutputDataPackageFactory {
     private static Logger LOG = LogManager.getLogger(OutputDataPackageFactory.class);

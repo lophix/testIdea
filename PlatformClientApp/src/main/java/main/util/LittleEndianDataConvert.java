@@ -3,9 +3,6 @@ package main.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Created by qudong on 2015/12/14.
- */
 public class LittleEndianDataConvert {
     private static Logger logger = LogManager.getLogger(LittleEndianDataConvert.class);
     /**

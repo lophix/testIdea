@@ -2,9 +2,6 @@ package main.util;
 
 import org.apache.commons.lang.StringUtils;
 
-/**
- * Created by qudong on 2015/12/14.
- */
 public class StringByteConvert {
     /**
      * 将String转为byte数组

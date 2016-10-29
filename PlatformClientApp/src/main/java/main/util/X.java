@@ -1,11 +1,7 @@
 package main.util;
 
-
 import java.util.*;
 
-/**
- * Created by pingxin on 2015/12/16.
- */
 public class X {
     /**
      * 泛型静态工厂方法
@@ -26,20 +22,7 @@ public class X {
     }
 
     public static <E> List<E> createArrayList(){
-        return new ArrayList<E>();
+        return new ArrayList<>();
     }
-
-    public static byte[] createArrays(int length){
-        return new byte[length];
-    }
-
-
-
-
-    public void test(){
-        Map<String, String> map = createMap();
-        Set<String> set = createSet();
-    }
-
 
 }
