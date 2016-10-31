@@ -5,6 +5,7 @@ import io.netty.channel.ChannelFuture;
 import main.pojo.RegisterUploadInfo;
 import main.pojo.ReturnBean;
 import main.pojo.enums.CMDType;
+import main.pojo.enums.VendorID;
 import main.util.DateUtil;
 import main.util.X;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,7 @@ public class ClientTask {
             outContents.clear();
             outContents= new HashMap<>();
             RegisterUploadInfo registerInfo = new RegisterUploadInfo();
-            registerInfo.setUserID((short)111);
+            registerInfo.setUserID((short) VendorID.FEIHONG.getVenderId());
 
             //将object序列化为byte[]
             //byte[] serialize = Serializer.serialize(registerInfo);
@@ -40,7 +41,7 @@ public class ClientTask {
 //
 //            byte[] bytes = LittleEndianDataConvert.shortToLittleEndianBytesByLength((short)111);
 //            System.arraycopy(bytes,0 ,serialize,0,bytes.length);
-
+            registerInfo.setPileType((byte)VendorID.FEIHONG.getVenderId());
             registerInfo.setPileCode("00750014630023");
             registerInfo.setVersion("1.0.0");
             registerInfo.setPileProjectType("feihong");
@@ -76,6 +77,7 @@ public class ClientTask {
 
         reBean.setReturnMap(map);
         reBean.setPileInfo(registerUploadInfo);
+        reBean.setVendorID(VendorID.FEIHONG);
         return reBean;
     }
 }
