@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/ProtobufTest/pom.xml" />
         <option value="$PROJECT_DIR$/NettyTest/pom.xml" />
         <option value="$PROJECT_DIR$/PlatformClientApp/pom.xml" />
+        <option value="$PROJECT_DIR$/PlatformServer/pom.xml" />
       </list>
     </option>
   </component>

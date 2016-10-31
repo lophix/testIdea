@@ -170,7 +170,6 @@ public class DataPacketEncoder extends MessageToByteEncoder<ReturnBean> {
 
     /**
      * 生成校验和域
-     * todo:使用算法完善
      */
     private byte getCheckArea(int cmdCode, byte[] domainData) {
         int checkValue = 0;
