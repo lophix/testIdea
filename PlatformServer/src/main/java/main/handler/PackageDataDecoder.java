@@ -26,6 +26,10 @@ public class PackageDataDecoder extends ByteToMessageDecoder {
         String startDomainStr = startDomainStrHigh + startDomainStrLow;
         dataPackageBean.setStartDomain(Integer.parseInt(startDomainStr, 16));
         short lengthDomain = in.readShort();
+        lengthDomain = reverseShort(lengthDomain);
+        dataPackageBean.setLengthDomain(lengthDomain);
+        dataPackageBean.setVersionDomain(in.readByte() & 0xff);
+        dataPackageBean.setSerialDomain(in.readByte() & 0xff);
 
     }
 
@@ -41,7 +45,22 @@ public class PackageDataDecoder extends ByteToMessageDecoder {
     }
 
     private short reverseShort(short s){
+        return bytesToShort(shortToBytes(s));
+    }
 
-        return s;
+    private short bytesToShort(byte[] b){
+        int s = 0;
+        s += b[0] & 0xff;
+        s = s << 8;
+        s += b[1] & 0xff;
+        short result = (short) s;
+        return result;
+    }
+
+    private byte[] shortToBytes(short s){
+        byte[] bytes = new byte[2];
+        bytes[0] = (byte) ( s & 0xff);
+        bytes[1] = (byte) (s >> 8 & 0xff);
+        return bytes;
     }
 }
