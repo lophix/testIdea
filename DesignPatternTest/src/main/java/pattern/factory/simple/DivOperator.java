@@ -7,7 +7,7 @@ package pattern.factory.simple;
 public class DivOperator extends Operator {
 
     public int getResult(int a, int b) {
-        if (a != 0)
+        if (b != 0)
             return a / b;
         else
             System.err.println("error");
