@@ -1,7 +1,5 @@
 package pattern.strategy;
 
-import javax.lang.model.type.NullType;
-
 /**
  * @Authuor Administrator
  * @Create 2016-11-04-13:54
