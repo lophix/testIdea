@@ -29,9 +29,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="NettyTest" target="1.8" />
-      <module name="PlatformClientApp" target="1.8" />
-      <module name="PlatformServer" target="1.8" />
+      <module name="NettyTest" target="1.5" />
+      <module name="PlatformClientApp" target="1.5" />
+      <module name="PlatformServer" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
