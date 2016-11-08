@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DesignPatternTest/DesignPatternTest.iml" filepath="$PROJECT_DIR$/DesignPatternTest/DesignPatternTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/NettyTest/NettyTest.iml" filepath="$PROJECT_DIR$/NettyTest/NettyTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/PlatformClientApp/PlatformClientApp.iml" filepath="$PROJECT_DIR$/PlatformClientApp/PlatformClientApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/PlatformServer/PlatformServer.iml" filepath="$PROJECT_DIR$/PlatformServer/PlatformServer.iml" />

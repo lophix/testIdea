@@ -7,11 +7,7 @@ package pattern.responsibility.chain;
 public class ResponsibilityChainMain {
     public static void main(String[] args) {
         Handler handlerA = new ConcreteHandlerA();
-        Handler handlerB = new ConcreteHandlerB();
-        Handler handlerC = new ConcreteHandlerC();
-        handlerA.addHandler(handlerB);
-        handlerA.addHandler(handlerC);
-        handlerA.addHandler(new Handler() {
+        handlerA.addHandler(new ConcreteHandlerB()).addHandler(new ConcreteHandlerC()).addHandler(new Handler() {
             @Override
             public void handleRequest(String req) {
                 System.out.println("This is a test");

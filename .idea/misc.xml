@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/NettyTest/pom.xml" />
         <option value="$PROJECT_DIR$/PlatformClientApp/pom.xml" />
         <option value="$PROJECT_DIR$/PlatformServer/pom.xml" />
+        <option value="$PROJECT_DIR$/DesignPatternTest/pom.xml" />
       </list>
     </option>
   </component>
