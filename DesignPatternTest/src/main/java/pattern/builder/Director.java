@@ -5,10 +5,7 @@ package pattern.builder;
  */
 public class Director {
 
-    private Builder builder;
-
     public void construct(Builder builder){
-        this.builder = builder;
         builder.setHead();
         builder.setBody();
         builder.setFeet();
