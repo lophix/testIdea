@@ -22,6 +22,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="DesignPatternTest" />
         <module name="NettyTest" />
         <module name="PlatformClientApp" />
         <module name="PlatformServer" />
@@ -29,6 +30,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="DesignPatternTest" target="1.8" />
       <module name="NettyTest" target="1.8" />
       <module name="PlatformClientApp" target="1.8" />
       <module name="PlatformServer" target="1.8" />

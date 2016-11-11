@@ -30,7 +30,6 @@ public class XmlBeanTransfer {
         List<T> list = new ArrayList<>();  //创建集合
         Document document = null;
         try {
-            SAXReader reader = new SAXReader();
             document = DocumentHelper.parseText(xml);  //字符串转xml文件
             Element root = document.getRootElement();  //获取根节点
             List<Element> elements = root.elements();
