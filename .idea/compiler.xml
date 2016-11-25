@@ -27,6 +27,7 @@
         <module name="PlatformClientApp" />
         <module name="PlatformServer" />
         <module name="ProtobufTest" />
+        <module name="WebProjectTest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
@@ -34,6 +35,8 @@
       <module name="NettyTest" target="1.8" />
       <module name="PlatformClientApp" target="1.8" />
       <module name="PlatformServer" target="1.8" />
+      <module name="WebProject" target="1.8" />
+      <module name="WebProjectTest" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

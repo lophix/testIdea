@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="WebProjectTest:war">
+    <output-path>$PROJECT_DIR$/WebProjectTest/target</output-path>
+    <root id="archive" name="webtest.war">
+      <element id="artifact" artifact-name="WebProjectTest:war exploded" />
+    </root>
+  </artifact>
+</component>
