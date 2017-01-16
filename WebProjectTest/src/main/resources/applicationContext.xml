@@ -11,7 +11,7 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<!--扫描所有，controller交给springmvc子容器处理，这里获得的service是有事务增强处理的 -->
-	<context:component-scan base-package="com.yunshan.projectSystem">
+	<context:component-scan base-package="com.flag.xu.web.util">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -20,7 +20,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:conf/jdbc.properties</value>
+				<value>classpath:jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -28,17 +28,17 @@
 
 
 	<!-- 配置DataSource数据源 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${driverClass}" />
 		<property name="url" value="${jdbcUrl}" />
 		<property name="username" value="${user}" />
 		<property name="password" value="${password}" />
-		<property name="maxActive" value="50" />
-		<property name="maxIdle" value="3" />
-		<property name="maxWait" value="1000" />
+		<property name="maxTotal" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWaitMillis" value="1000" />
 		<property name="defaultAutoCommit" value="true" />
-		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedOnBorrow" value="true" />
 		<property name="removeAbandonedTimeout" value="60" />
 	</bean>
 
@@ -49,7 +49,7 @@
 		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml" />
 		<property name="plugins">
 			<array>
-				<bean class="com.yunshan.projectSystem.interceptor.PageInterceptor"></bean>
+				<!--<bean class="com.yunshan.projectSystem.interceptor.PageInterceptor"></bean>-->
 			</array>
 		</property>
 	</bean>
