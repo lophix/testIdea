@@ -12,9 +12,23 @@ import java.lang.reflect.Method;
  */
 public class DynamicProxy implements InvocationHandler {
 
+    private Object target;
+
+    public DynamicProxy(Object target){
+        this.target = target;
+    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return null;
+        Object obj;
+        if (target instanceof Monkey) {
+            System.out.println("before method");
+            obj = method.invoke(target, args);
+            System.out.println("after method");
+        } else {
+            obj = method.invoke(target, args);
+        }
+        return obj;
     }
 
 }
