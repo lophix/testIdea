@@ -15,7 +15,7 @@ import java.net.URLConnection;
  */
 public class MyHttpRequest {
     public static String sendPost(String url, String params) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         PrintWriter out = null;
         BufferedReader bufferedReader = null;
         try {
@@ -32,7 +32,7 @@ public class MyHttpRequest {
             bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
             String resp;
             while ((resp = bufferedReader.readLine()) != null) {
-                result += resp;
+                result.append(resp);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,18 +41,18 @@ public class MyHttpRequest {
                 if (bufferedReader != null) {
                     bufferedReader.close();
                 }
-                if (out == null) {
+                if (out != null) {
                     out.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static String sendGet(String url, String params) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String sendUrl = url + "?" + params;
         BufferedReader bufferedReader = null;
         try {
@@ -66,7 +66,7 @@ public class MyHttpRequest {
             bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
             String resp;
             while ((resp = bufferedReader.readLine()) != null) {
-                result += resp;
+                result.append(resp);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,6 +79,6 @@ public class MyHttpRequest {
                 e.printStackTrace();
             }
         }
-        return result;
+        return result.toString();
     }
 }
